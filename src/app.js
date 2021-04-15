@@ -14,4 +14,10 @@ app.use(cors({origin: true, credentials: true}));
 app.use(index);
 app.use('/', carsRoute);
 
+//error handling
+app.use((err, req, res, next) => {
+    if (process.env.NODE_ENV === "production")
+      res.status(500).json({ error: "internal server error" });
+    else return next(err);
+  });
 module.exports = app;
