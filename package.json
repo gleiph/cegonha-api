@@ -1,0 +1,17 @@
+{
+  "name": "cegonha-api",
+  "version": "1.0.0",
+  "description": "api do aplicatinho cegonha, responsável por cadastrar usuários com seus endereços e retornar o local de parto e de pré natal daquela grávida",
+  "main": "index.js",
+  "author": "walkiria garcia",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "nodemon": "2.0.7"
+  }
+}
