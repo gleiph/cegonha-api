@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const app = express();
 const carsRoute = require('./routes/Cars')
+const userRoute = require('./routes/User')
 
 // ==> Rotas da API:
 const index = require('./routes/index');
@@ -13,6 +14,7 @@ app.use(cors({origin: true, credentials: true}));
 
 app.use(index);
 app.use('/', carsRoute);
+app.use('/', userRoute);
 
 //error handling
 app.use((err, req, res, next) => {
