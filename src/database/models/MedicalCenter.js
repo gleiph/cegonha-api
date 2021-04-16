@@ -2,39 +2,34 @@ const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
 
-const User = sequelize.define("users", {
+const MedicalCenter = sequelize.define("medical-center", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },  
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  cpf: {
+  phone: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
   },
-
+  latitude: {
+    type: DataTypes.REAL,
+  },
+  longitude: {
+    type: DataTypes.REAL,
+  },
+  
 });
 
 //create table if not exists...
 const init = async () => {
-  await User.sync();
+  await MedicalCenter.sync();
 };
 
 init();
 
-module.exports = User;
+module.exports = MedicalCenter;

@@ -73,7 +73,7 @@ module.exports = {
           req.username = decoded.username;
           if (req.username != 'admin') {
             permit.fail(res);
-            return res.status(401).json({ error: "user whit!" });
+            return res.status(401).json({ error: "user without access!" });
           }
           next();
         });

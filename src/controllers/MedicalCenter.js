@@ -1,8 +1,9 @@
-const User = require("../database/models/User");
+const MedicalCenter = require("../database/models/MedicalCenter");
 const bcrypt = require("bcrypt");
+
 module.exports = {
  all(req, res, next) {
-    User.findAll()
+    MedicalCenter.findAll()
       .then((result) => {
         res.json(result);
       })
@@ -11,18 +12,15 @@ module.exports = {
 
 
   create(req, res, next) {
-    const { username, password, name, cpf } = req.body;
-
-    User.create({
-      username,
-      password,
-      name, 
-      cpf, 
-    
+    const { name, phone, latitude, longitude} = req.body;
+    MedicalCenter.create({
+        name,
+        phone,
+        latitude, 
+        longitude, 
     })
     
       .then((result) => {
-        bcrypt.hashSync(password, 10),
         res.status(201).json(result); //return with ID -> 201 (CREATED)
       })
       .catch(next);
@@ -31,9 +29,9 @@ module.exports = {
   // ==> Método responsável por selecionar 'Endereco' pelo 'id':
   findById(req, res, next) {
     const id = req.params.id;
-    User.findByPk(id)
-    .then(customer => {
-        res.send(customer);
+    MedicalCenter.findByPk(id)
+    .then(result => {
+        res.send(result);
     })
     .catch(next);
     },
@@ -41,13 +39,13 @@ module.exports = {
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
       const id = req.params.id;
-      const { username, password, name, cpf } = req.body;
+      const { name, phone, latitude, longitude } = req.body;
 
-      User.update({
-        username : username, 
-        password : password, 
+      MedicalCenter.update({
         name : name, 
-        cpf : cpf, 
+        phone :  phone, 
+        latitude : latitude, 
+        longitude : longitude, 
          
         },
       { where: {id: id} }
@@ -59,14 +57,14 @@ module.exports = {
       
       },
 
-      // ==> Método responsável por excluir um 'Endereço' pelo 'Id':
+      // ==> Método responsável por excluir um 'centro médico' pelo 'Id':
     deleteById(req, res, next) {
       const id = req.params.id;
 
-      User.destroy({
+      MedicalCenter.destroy({
           where: { id: id }
       }).then(() => {
-          res.status(200).send('deleted successfully a user with id = ' + id);
+          res.status(200).send('deleted successfully a Medical Center with id = ' + id);
       })
       .catch(next);
 
