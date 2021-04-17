@@ -12,12 +12,13 @@ module.exports = {
 
 
   create(req, res, next) {
-    const { name, phone, latitude, longitude} = req.body;
+    const { name, phone, latitude, longitude, id_addres} = req.body;
     MedicalCenter.create({
         name,
         phone,
         latitude, 
         longitude, 
+        id_addres
     })
     
       .then((result) => {
@@ -39,13 +40,14 @@ module.exports = {
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
       const id = req.params.id;
-      const { name, phone, latitude, longitude } = req.body;
+      const { name, phone, latitude, longitude, id_addres } = req.body;
 
       MedicalCenter.update({
         name : name, 
         phone :  phone, 
         latitude : latitude, 
-        longitude : longitude, 
+        longitude : longitude,
+        id_addres: id_addres 
          
         },
       { where: {id: id} }

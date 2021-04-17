@@ -11,7 +11,7 @@ module.exports = {
     },
 // ==> Método responsável por criar um novo 'Endereço':
     create(req, res, next) {
-      const { street, number_start,  number_end, district, city, uf, cep } = req.body;
+      const { street, number_start,  number_end, district, city, uf, cep, id_addres_parto, id_addres_pre_natal } = req.body;
       CoverAddress.create({
         street, 
         number_start,  
@@ -19,7 +19,9 @@ module.exports = {
         district, 
         city, 
         uf, 
-        cep
+        cep,
+        id_addres_parto, 
+        id_addres_pre_natal
       })
         .then((result) => {
           res.status(201).json(result); //return with ID -> 201 (CREATED)
@@ -40,7 +42,7 @@ module.exports = {
 // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
         const id = req.params.id;
-        const { street, number_start, number_end, district, city, uf, cep } = req.body;
+        const { street, number_start, number_end, district, city, uf, cep, id_addres_parto, id_addres_pre_natal } = req.body;
 
         CoverAddress.update({
         street : street, 
@@ -49,7 +51,10 @@ module.exports = {
         district : district, 
         city : city, 
         uf : uf, 
-        cep : cep},
+        cep : cep,
+        id_addres_parto: id_addres_parto, 
+        id_addres_pre_natal: id_addres_pre_natal
+        },
         { where: {id: id} }
         )
         .then((result) => {

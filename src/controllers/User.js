@@ -11,13 +11,14 @@ module.exports = {
 
 
   create(req, res, next) {
-    const { username, password, name, cpf } = req.body;
+    const { username, password, name, cpf, id_addres } = req.body;
 
     User.create({
       username,
       password,
       name, 
       cpf, 
+      id_addres
     
     })
     
@@ -41,13 +42,14 @@ module.exports = {
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
       const id = req.params.id;
-      const { username, password, name, cpf } = req.body;
+      const { username, password, name, cpf, id_addres } = req.body;
 
       User.update({
         username : username, 
         password : password, 
         name : name, 
         cpf : cpf, 
+        id_addres : id_addres
          
         },
       { where: {id: id} }

@@ -28,6 +28,7 @@ const Address = sequelize.define("address", {
  cep: {
     type: DataTypes.STRING,
   },
+
 });
 
 //create table if not exists...

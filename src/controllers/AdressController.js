@@ -93,6 +93,7 @@ module.exports = {
                                district: district
                               }
                     }).then(resu => {
+
                         res.send(resu);
                     })
                     }

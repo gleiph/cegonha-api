@@ -2,7 +2,9 @@ const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
 
-const User = sequelize.define("users", {
+const Address = require('./Address')
+
+const User = sequelize.define("user", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -26,6 +28,13 @@ const User = sequelize.define("users", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+  },
+  id_addres: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Address,
+      key: 'id',
+    }
   },
 
 });

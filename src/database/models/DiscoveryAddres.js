@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
+const Address = require('./Address')
 
 const DiscoveyAddress = sequelize.define("discovey-address", {
   id: {
@@ -28,6 +29,20 @@ const DiscoveyAddress = sequelize.define("discovey-address", {
   cep: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  id_addres_parto: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Address,
+      key: 'id',
+    }
+  },
+  id_addres_pre_natal: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Address,
+      key: 'id',
+    }
   },
 });
 
