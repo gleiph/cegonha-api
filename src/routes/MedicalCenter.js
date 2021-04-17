@@ -8,7 +8,7 @@ router.post("/medical-center", AuthController.admin, MedicalCenterController.cre
 router.get("/medical-center", AuthController.auth, MedicalCenterController.all);
 router.get("/medical-center/:id", AuthController.auth, MedicalCenterController.findById);
 router.get("/medical-center-name/:name", AuthController.auth, MedicalCenterController.findByName);
-router.put("/medical-center/:id",  AuthController.admin, MedicalCenterController.findById);
+router.put("/medical-center/:id",  AuthController.admin, MedicalCenterController.updateById);
 router.delete("/medical-center/:id",  AuthController.admin, MedicalCenterController.deleteById);
 
 
