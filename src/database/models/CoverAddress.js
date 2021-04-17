@@ -14,10 +14,10 @@ const CoverAddress = sequelize.define("cover-address", {
     allowNull: false,
   },
   number_start: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
   },
   number_end: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
   },
   district: {
     type: DataTypes.STRING,

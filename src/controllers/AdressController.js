@@ -86,7 +86,6 @@ module.exports = {
                 .then(result => {
                     
                     if(result != ""){
-                        console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjIIIIIIIIIIIIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
                         res.send(result);}
                     else{
                         DiscoveryCoverAddress.findAll({
@@ -94,7 +93,6 @@ module.exports = {
                                district: district
                               }
                     }).then(resu => {
-                        console.log("j000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000")
                         res.send(resu);
                     })
                     }
