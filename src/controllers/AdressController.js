@@ -95,7 +95,7 @@ module.exports = {
 
             CoverAddress.findAll({
                 where: {
-                  [Op.and]: [{street: street}, {number_start:{ [Op.lte]: number}}, {number_end:{[Op.gte]: number}}, {district: district}, {city: city}, {uf: uf}, {cep: cep}]
+                  [Op.and]: [{street: street}, {[Op.or]: [{number_start:{ [Op.lte]: number}}, {number_start: null}]}, {[Op.or]: [{number_end:{ [Op.lte]: number}}, {number_end: null}]}, {district: district}, {city: city}, {uf: uf}, {cep: cep}]
                 }
             })
                 .then(result => {
