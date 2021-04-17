@@ -1,4 +1,8 @@
 const Address = require('../database/models/Address');
+const CoverAddress = require('../database/models/CoverAddress');
+const DiscoveryCoverAddress = require('../database/models/DiscoveryAddres');
+const { Sequelize } = require("sequelize");
+const Op = Sequelize.Op;              // biblioteca de operadores
 
 module.exports = {
 // ==> Método responsável por listar todos os 'Endereços':
@@ -71,14 +75,31 @@ module.exports = {
 
         },
 // ==> Método responsável por selecionar uma 'Célula' pelo endereço:
-        findHospital (req, res, next)  {
+        findCenterMedical (req, res, next)  {
             const { street, number, district, city, uf, cep } = req.body;
 
-        Address.findByPk(
-            'SELECT * FROM CoverAddress WHERE street = $1 and number_start <= $2 and number_end >= $2 and cep = $3 and district = $4 and city = $5 and uf = $6',
-            [street, number, district, city, uf, cep],
-        );
-        
+            CoverAddress.findAll({
+                where: {
+                  [Op.and]: [{street: street}, {number_start:{ [Op.lte]: number}}, {number_end:{[Op.gte]: number}}, {district: district}, {city: city}, {uf: uf}, {cep: cep}]
+                }
+            })
+                .then(result => {
+                    
+                    if(result != ""){
+                        console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjIIIIIIIIIIIIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+                        res.send(result);}
+                    else{
+                        DiscoveryCoverAddress.findAll({
+                            where: {
+                               district: district
+                              }
+                    }).then(resu => {
+                        console.log("j000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000")
+                        res.send(resu);
+                    })
+                    }
+                })
+                .catch(next)
         }
 };
 

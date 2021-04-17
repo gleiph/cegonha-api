@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
+const Op = sequelize.Op;
 
 const Address = sequelize.define("address", {
   id: {
