@@ -1,5 +1,6 @@
 const MedicalCenter = require("../database/models/MedicalCenter");
-const bcrypt = require("bcrypt");
+const { Sequelize } = require("sequelize");
+const Op = Sequelize.Op;              // biblioteca de operadores
 
 module.exports = {
  all(req, res, next) {
@@ -12,13 +13,27 @@ module.exports = {
 
 
   create(req, res, next) {
-    const { name, phone, latitude, longitude, id_addres} = req.body;
+    const { name, phone, latitude, longitude, id_addres, image} = req.body;
+    const errors = []
+
+        if(!name) {
+            errors.push({error: "Name is empty"})
+        }
+
+        if(!id_addres) {
+            errors.push({error: "Id_addres is empty"})
+        }
+
+        if (errors.length > 0)
+            return res.status(400).json(errors);
+            
     MedicalCenter.create({
         name,
         phone,
         latitude, 
         longitude, 
-        id_addres
+        id_addres,
+        image
     })
     
       .then((result) => {
@@ -36,19 +51,34 @@ module.exports = {
     })
     .catch(next);
     },
-
+  // ==> Método responsável por listar hospitais por nome':
+  findByName(req, res, next) {
+    const name = req.params.name;
+    MedicalCenter.findAll({
+      where: {
+        name: {
+          [Op.like]: '%'+name+'%'
+        }
+      }
+    })
+    .then(result => {
+        res.send(result);
+    })
+    .catch(next);
+  },
+  
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
       const id = req.params.id;
-      const { name, phone, latitude, longitude, id_addres } = req.body;
+      const { name, phone, latitude, longitude, id_addres, image } = req.body;
 
       MedicalCenter.update({
         name : name, 
         phone :  phone, 
         latitude : latitude, 
         longitude : longitude,
-        id_addres: id_addres 
-         
+        id_addres: id_addres,
+        image: image
         },
       { where: {id: id} }
       )

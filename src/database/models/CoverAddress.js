@@ -38,6 +38,7 @@ const CoverAddress = sequelize.define("cover-address", {
   },
   id_addres_parto: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
       model: Address,
       key: 'id',
@@ -45,6 +46,7 @@ const CoverAddress = sequelize.define("cover-address", {
   },
   id_addres_pre_natal: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
       model: Address,
       key: 'id',

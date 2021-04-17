@@ -12,10 +12,51 @@ module.exports = {
 
   create(req, res, next) {
     const { username, password, name, cpf, id_addres } = req.body;
+    const errors = []
+
+    if(!username) {
+        errors.push({error: "Username is empty"})
+    }
+
+    if(!password) {
+        errors.push({error: "Password is empty"})
+    }
+
+    if(!name) {
+        errors.push({error: "Name is empty"})
+    }
+
+    if(!cpf) {
+        errors.push({error: "CPF is empty"})
+    }
+
+    if (errors.length > 0)
+        return res.status(400).json(errors);
+
+    User.findAll({
+      where: {
+        cpf: cpf
+        }
+      })
+      .then((result) => {
+        if(result != ""){
+          return res.status(400).send({error: 'CPF already exists'});
+        }
+      })
+    User.findAll({
+      where: {
+        username: username
+        }
+      })
+      .then((result) => {
+        if(result != ""){
+          return res.status(400).send({error: 'Username already exists'});
+        }
+      })
 
     User.create({
       username,
-      password,
+      password: bcrypt.hashSync("123", 10),
       name, 
       cpf, 
       id_addres
@@ -29,10 +70,14 @@ module.exports = {
       .catch(next);
   },
 
-  // ==> Método responsável por selecionar 'Endereco' pelo 'id':
+  // ==> Método responsável por selecionar 'usuario' pelo 'cpf':
   findById(req, res, next) {
-    const id = req.params.id;
-    User.findByPk(id)
+    const cpf = req.params.cpf;
+    User.findAll({
+      where: {
+        cpf: cpf
+      }
+    })
     .then(customer => {
         res.send(customer);
     })

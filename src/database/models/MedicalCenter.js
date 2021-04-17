@@ -22,8 +22,12 @@ const MedicalCenter = sequelize.define("medical-center", {
   longitude: {
     type: DataTypes.REAL,
   },
+  image: {
+    type: DataTypes.STRING,
+  },
   id_addres: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
       model: Address,
       key: 'id',

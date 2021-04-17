@@ -12,6 +12,38 @@ module.exports = {
 // ==> Método responsável por criar um novo 'Endereço':
     create(req, res, next) {
       const { district, region, city, uf, cep, id_addres_parto, id_addres_pre_natal } = req.body;
+      const errors = []
+
+        if(!district) {
+            errors.push({error: "District is empty"})
+        }
+
+        if(!region) {
+            errors.push({error: "Region is empty"})
+        }
+
+        if(!city) {
+            errors.push({error: "City is empty"})
+        }
+
+        if(!uf) {
+            errors.push({error: "UF is empty"})
+        }
+
+        if(!cep) {
+            errors.push({error: "CEP is empty"})
+        }
+
+        if(!id_addres_parto) {
+            errors.push({error: "id_addres_parto is empty"})
+        }
+
+        if(!id_addres_pre_natal) {
+            errors.push({error: "id_addres_pre_natal is empty"})
+        }
+        if (errors.length > 0)
+            return res.status(400).json(errors);
+
       DiscoveryAddress.create({
         district, 
         region,

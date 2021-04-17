@@ -1,6 +1,7 @@
 const Address = require('../database/models/Address');
 const CoverAddress = require('../database/models/CoverAddress');
 const DiscoveryCoverAddress = require('../database/models/DiscoveryAddres');
+
 const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;              // biblioteca de operadores
 
@@ -40,7 +41,21 @@ module.exports = {
         })
         .catch(next);
         },
-
+    // ==> Método responsável por listar todas as ruas por nome':
+    findByName(req, res, next) {
+        const name = req.params.name;
+        CoverAddress.findAll({
+        where: {
+            name: {
+            [Op.like]: '%'+name+'%'
+            }
+        }
+        })
+        .then(result => {
+            res.send(result);
+        })
+        .catch(next);
+    },
 // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
         const id = req.params.id;

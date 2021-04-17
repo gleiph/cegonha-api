@@ -20,7 +20,7 @@ module.exports = {
           if (!user) return res.status(401).json({ error: "username not found" });
     
           //password check
-          if (!(password, user.password)) {
+          if (!bcrypt.compareSync(password, user.password)) {
             return res.status(401).json({ error: "invalid password" });
           }
     

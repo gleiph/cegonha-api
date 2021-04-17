@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
 
-const Address = require('./Address')
+const Address = require('./Address');
 
 const User = sequelize.define("user", {
   id: {
