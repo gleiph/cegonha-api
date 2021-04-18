@@ -9,6 +9,6 @@ router.get("/address", AuthController.auth, AddressController.all);
 router.get("/address/:id", AuthController.auth, AddressController.findById);
 router.put("/address/:id", AuthController.auth, AddressController.updateById);
 router.delete("/address/:id", AuthController.admin, AddressController.deleteById);
-router.post("/find-center-medical", AuthController.auth, AddressController.findCenterMedical);
+router.post("/find-center-medical", AddressController.findCenterMedical);
 
 module.exports = router;
