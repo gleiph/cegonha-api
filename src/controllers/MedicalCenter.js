@@ -10,19 +10,34 @@ module.exports = {
       })
       .catch(next);
   },
-
-
+  
   create(req, res, next) {
-    const { name, phone, latitude, longitude, id_addres, image} = req.body;
+    const { name, phone, latitude, longitude, image, street, number, district, city, uf, cep} = req.body;
     const errors = []
 
         if(!name) {
             errors.push({error: "Name is empty"})
         }
 
-        if(!id_addres) {
-            errors.push({error: "Id_addres is empty"})
+        if(!street) {
+            errors.push({error: "Street is empty"})
         }
+
+        if(!district) {
+          errors.push({error: "District is empty"})
+        }
+
+        if(!city) {
+          errors.push({error: "City is empty"})
+        }
+
+        if(!uf) {
+            errors.push({error: "UF is empty"})
+        }
+
+        if(!cep) {
+          errors.push({error: "CEP is empty"})
+        } 
 
         if (errors.length > 0)
             return res.status(400).json(errors);
@@ -32,8 +47,13 @@ module.exports = {
         phone,
         latitude, 
         longitude, 
-        id_addres,
-        image
+        image,
+        street, 
+        number, 
+        district, 
+        city, 
+        uf, 
+        cep
     })
     
       .then((result) => {
@@ -70,15 +90,20 @@ module.exports = {
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
       const id = req.params.id;
-      const { name, phone, latitude, longitude, id_addres, image } = req.body;
+      const { name, phone, latitude, longitude, image, street, number, district, city, uf, cep } = req.body;
 
       MedicalCenter.update({
         name : name, 
         phone :  phone, 
         latitude : latitude, 
         longitude : longitude,
-        id_addres: id_addres,
-        image: image
+        image: image,
+        street : street, 
+        number : number, 
+        district : district, 
+        city: city, 
+        uf : uf, 
+        cep : cep
         },
       { where: {id: id} }
       )

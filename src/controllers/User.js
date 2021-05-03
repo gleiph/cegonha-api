@@ -11,12 +11,32 @@ module.exports = {
 
 
   create(req, res, next) {
-    const { username, password, name, cpf, id_addres } = req.body;
+    const { username, password, name, cpf, street, number, district, city, uf, cep } = req.body;
     const errors = []
 
     if(!username) {
         errors.push({error: "Username is empty"})
     }
+
+    if(!street) {
+      errors.push({error: "Street is empty"})
+    }
+
+    if(!district) {
+      errors.push({error: "District is empty"})
+    }
+
+    if(!city) {
+      errors.push({error: "City is empty"})
+    }
+
+    if(!uf) {
+        errors.push({error: "UF is empty"})
+    }
+
+    if(!cep) {
+      errors.push({error: "CEP is empty"})
+    } 
 
     if(!password) {
         errors.push({error: "Password is empty"})
@@ -87,14 +107,19 @@ module.exports = {
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
       const id = req.params.id;
-      const { username, password, name, cpf, id_addres } = req.body;
+      const { username, password, name, cpf, street, number, district, city, uf, cep } = req.body;
 
       User.update({
         username : username, 
         password : password, 
         name : name, 
         cpf : cpf, 
-        id_addres : id_addres
+        street : street, 
+        number : number, 
+        district : district, 
+        city: city, 
+        uf : uf, 
+        cep : cep
          
         },
       { where: {id: id} }

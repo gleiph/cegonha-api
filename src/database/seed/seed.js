@@ -9,7 +9,13 @@ User.create({
   password: bcrypt.hashSync("123", 10),
   name: "admin", 
   cpf: "11111111111",
-  id_addres: 1
+  street: "Marechal Deodoro",
+  number: "1",
+  district: "centro",
+  city: "Juiz de Fora",
+  uf: "MG",
+  cep: "03635126",
+  email:"admin@email"
 });
 
 User.findAll().then((result) => {

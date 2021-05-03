@@ -1,8 +1,5 @@
 const { DataTypes } = require("sequelize");
-
 const sequelize = require("../sequelize");
-
-const Address = require('./Address');
 
 const User = sequelize.define("user", {
   id: {
@@ -24,17 +21,38 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
   cpf: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
-  id_addres: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Address,
-      key: 'id',
-    }
+  street: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  number: {
+    type: DataTypes.STRING,
+  },
+  district: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  city: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  uf: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+ cep: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
 
 });

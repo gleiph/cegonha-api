@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
-
 const sequelize = require("../sequelize");
-const Address = require('./Address')
+
 const MedicalCenter = sequelize.define("medical-center", {
   id: {
     type: DataTypes.INTEGER,
@@ -25,13 +24,28 @@ const MedicalCenter = sequelize.define("medical-center", {
   image: {
     type: DataTypes.STRING,
   },
-  id_addres: {
-    type: DataTypes.INTEGER,
+  street: {
+    type: DataTypes.STRING,
     allowNull: false,
-    references: {
-      model: Address,
-      key: 'id',
-    }
+  },
+  number: {
+    type: DataTypes.STRING,
+  },
+  district: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  city: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  uf: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+ cep: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   
 });

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
-const Address = require('./Address')
+const MedicalCenter = require('./MedicalCenter')
 
 const DiscoveyAddress = sequelize.define("discovey-address", {
   id: {
@@ -33,14 +33,14 @@ const DiscoveyAddress = sequelize.define("discovey-address", {
   id_addres_parto: {
     type: DataTypes.INTEGER,
     references: {
-      model: Address,
+      model: MedicalCenter,
       key: 'id',
     }
   },
   id_addres_pre_natal: {
     type: DataTypes.INTEGER,
     references: {
-      model: Address,
+      model: MedicalCenter,
       key: 'id',
     }
   },
