@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { Bearer } = require("permit");
 const { Basic } = require("permit");
-
+const crypto = require("crypto");
+const nodemailer = require('nodemailer') // Importa o módulo principal
 const User = require("../database/models/User");
 
 const permit = new Bearer();
@@ -27,7 +28,6 @@ module.exports = {
           //generate & sign token
           let jwtPayload = { username: user.username }; //public payload!
           let token = jwt.sign(jwtPayload, process.env.JWT_SECRET); //user: user
-    
           return res.status(200).json({ token, username });
         });
       },
@@ -78,5 +78,81 @@ module.exports = {
           next();
         });
       },
+
+      forgot_password(req, res, next){
+        const {email} = req.body;
+        try{  
+          User.findOne({
+            where: {
+              email: email,
+            },
+          }).then((user) => {
+            //username does not exists
+            if (!user) return res.status(401).json({ error: "User not found" });
+          });
+
+            const newPassword = crypto.randomBytes(4).toString('hex');
+            const cripPassword = bcrypt.hashSync(newPassword, 10);
+
+            User.update({
+              password: cripPassword,
+              },
+            { where: {email: email} }
+            )
+            const transporter = nodemailer.createTransport({ // Configura os parâmetros de conexão com servidor.
+              service: "gmail",
+              secure: false,
+              port: 25,
+                auth: {
+                  user: "walkiria.garcia@ice.ufjf.br",
+                  pass: "04deAgosto"
+                }
+            })
+            const mailOptions = { // Define informações pertinentes ao E-mail que será enviado
+              from: 'walkiria.garcia@ice.ufjf.br',
+              to: email,
+              subject: 'Redefinição de senha aplicativo cegonha',
+              html: '<div style="background-color: black; color: white; text-align: center"><h1>Senha alterada</h1><p> Você solicitou a mudança de senha do <h1>App Cegonha</h1>  Sua nova senha é:</p><h1 style="background-color: green; color: white">'+ newPassword +'</h1><p> É recomendado modificar sua senha assim que acessar o aplicativo novamente </p> </div>'
+             
+            }
+            transporter.sendMail(mailOptions, (err, info) => { // Função que, efetivamente, envia o email.
+              if (err) {
+                return console.log(err)
+              }
+              return res.status(200).json({ message: "A new password was sent to email "+ email });
+            })
+           
+
+        } catch(err){
+          console.log(err)
+          res.status(400).send({ error: "Erro on forgot password, try again"});
+        }
+      },
+      
+      reset_password(req, res, next){
+        const id = req.params.id;
+        const {password, newPassword} = req.body;
+
+        User.findOne({
+          where: {
+            id: id,
+          },
+        }).then((user) => {
+          //password check
+          if (!bcrypt.compareSync(password, user.password)) {
+            return res.status(401).json({ error: "invalid password" });
+          }
+        });
+        User.update({
+          password : bcrypt.hashSync(newPassword, 10), 
+          },
+        { where: {id: id} }
+        )
+        .then((result) => {
+          return res.status(201).json({ message: "Password changed successfully" });
+        })
+        .catch(next);
+        
+        },
 
 };

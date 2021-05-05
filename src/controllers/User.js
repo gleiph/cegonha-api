@@ -11,7 +11,7 @@ module.exports = {
 
 
   create(req, res, next) {
-    const { username, password, name, cpf, street, number, district, city, uf, cep } = req.body;
+    const { username, password, name, cpf, email, street, number, district, city, uf, cep } = req.body;
     const errors = []
 
     if(!username) {
@@ -50,6 +50,10 @@ module.exports = {
         errors.push({error: "CPF is empty"})
     }
 
+    if(!email) {
+      errors.push({error: "Email is empty"})
+  }
+
     if (errors.length > 0)
         return res.status(400).json(errors);
 
@@ -76,10 +80,16 @@ module.exports = {
 
     User.create({
       username,
-      password: bcrypt.hashSync("123", 10),
+      password : bcrypt.hashSync(password, 10),
       name, 
       cpf, 
-      id_addres
+      street, 
+      number, 
+      district, 
+      city, 
+      uf, 
+      cep,
+      email
     
     })
     
@@ -107,11 +117,11 @@ module.exports = {
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
       const id = req.params.id;
-      const { username, password, name, cpf, street, number, district, city, uf, cep } = req.body;
+      const { username, password, name, cpf, email, street, number, district, city, uf, cep } = req.body;
 
       User.update({
         username : username, 
-        password : password, 
+        password : bcrypt.hashSync(password, 10), 
         name : name, 
         cpf : cpf, 
         street : street, 
@@ -119,7 +129,8 @@ module.exports = {
         district : district, 
         city: city, 
         uf : uf, 
-        cep : cep
+        cep : cep,
+        email:email
          
         },
       { where: {id: id} }

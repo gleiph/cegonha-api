@@ -54,6 +54,14 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  passwordResetToken: {
+    type: DataTypes.STRING,
+    select: false,
+  },
+  passwordResetExpires: {
+    type: DataTypes.STRING,
+    select: false,
+  },
 
 });
 

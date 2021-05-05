@@ -11,6 +11,7 @@ router.get("/user", AuthController.admin, UserController.all);
 router.get("/user/:cpf", AuthController.auth, UserController.findById);
 router.put("/user/:id", AuthController.auth, UserController.updateById);
 router.delete("/user/:id",  AuthController.admin, UserController.deleteById);
-
+router.post("/forgot_password", AuthController.forgot_password);
+router.post("/reset_password/:id", AuthController.auth,AuthController.reset_password);
 
 module.exports = router;
