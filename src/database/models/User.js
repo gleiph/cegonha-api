@@ -33,26 +33,21 @@ const User = sequelize.define("user", {
   },
   street: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   number: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
   },
   district: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   city: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   uf: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
  cep: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
 
 });

@@ -1,4 +1,7 @@
 const CoverAddress = require('../database/models/CoverAddress');
+const DiscoveryAddress = require('../database/models/DiscoveryAddres');
+const { Sequelize } = require("sequelize");
+const Op = Sequelize.Op;              // biblioteca de operadores
 
 module.exports = {
 // ==> Método responsável por listar todos os 'Endereços':
@@ -108,5 +111,44 @@ module.exports = {
         .catch(next);
 
         },
+
+        findCenterMedical(req, res, next) {
+            const id = req.params.id;
+            const { street, number, district, city, uf, cep } = req.body;
+      
+            CoverAddress.findAll({
+              where: {
+                street:street,
+                number_end:{
+                    [Op.gte]: number
+                },
+                number_start:{
+                    [Op.lte]: number
+                },
+                district:district,
+                city:city,
+                uf:uf, 
+                cep:cep
+              }
+            })
+            .then((result) => {
+                if(result !== [])
+                    res.json(result);
+                else{
+                    DiscoveryAddress.findAll({
+                        where: {
+                            district:district,
+                            city:city,
+                            uf:uf, 
+                          }
+                    })
+                    .then((result) => {
+                        res.json(result);
+                    })
+                }
+            })
+            .catch(next);
+            
+          },
 };
 

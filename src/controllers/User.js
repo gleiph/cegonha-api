@@ -20,26 +20,6 @@ module.exports = {
         errors.push({error: "Username is empty"})
     }
 
-    if(!street) {
-      errors.push({error: "Street is empty"})
-    }
-
-    if(!district) {
-      errors.push({error: "District is empty"})
-    }
-
-    if(!city) {
-      errors.push({error: "City is empty"})
-    }
-
-    if(!uf) {
-        errors.push({error: "UF is empty"})
-    }
-
-    if(!cep) {
-      errors.push({error: "CEP is empty"})
-    } 
-
     if(!password) {
         errors.push({error: "Password is empty"})
     }
