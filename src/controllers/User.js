@@ -1,5 +1,7 @@
 const User = require("../database/models/User");
 const bcrypt = require("bcrypt");
+const nodemailer = require('nodemailer') // Importa o módulo principal
+
 module.exports = {
  all(req, res, next) {
     User.findAll()
@@ -94,6 +96,29 @@ module.exports = {
     })
     
       .then((result) => {
+        const transporter = nodemailer.createTransport({ // Configura os parâmetros de conexão com servidor.
+          service: "gmail",
+          secure: false,
+          port: 25,
+            auth: {
+              user: "walkiria.garcia@ice.ufjf.br",
+              pass: "04deAgosto"
+            }
+        })
+        const mailOptions = { // Define informações pertinentes ao E-mail que será enviado
+          from: 'walkiria.garcia@ice.ufjf.br',
+          to: email,
+          subject: 'Cadastro no aplicativo cegonha',
+          html: '<div style="background-color: #E0FFFF; color: #363636; text-align: center; margin-right: 5%; margin-left:5%"><h1 style=" padding-top: 50px">Olá ' + name + '! </h1><h3> Este email é para te informar que o seu cadastro no aplicativo rede cegonha foi realizado com sucesso</h3><h3 style=" padding-bottom: 50px"> Acesse sua conta com o usuário  '  +username +'</h3></div>'
+         
+        }
+        transporter.sendMail(mailOptions, (err, info) => { // Função que, efetivamente, envia o email.
+          if (err) {
+            return console.log(err)
+          }
+          return res.status(200).json({ message: "A new password was sent to email "+ email });
+        })
+
         bcrypt.hashSync(password, 10),
         res.status(201).json(result); //return with ID -> 201 (CREATED)
       })

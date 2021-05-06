@@ -7,6 +7,7 @@ const userRoute = require('./routes/User')
 const medicalCenterRoute = require('./routes/MedicalCenter')
 const coverAddressRoute = require('./routes/CoverAddress')
 const discoveryCoverRoute = require('./routes/DiscoveryAddress')
+const messageRoute = require('./routes/Message')
 
 // ==> Rotas da API:
 const index = require('./routes/index');
@@ -21,6 +22,7 @@ app.use('/', userRoute);
 app.use('/', medicalCenterRoute);
 app.use('/', coverAddressRoute);
 app.use('/', discoveryCoverRoute);
+app.use('/', messageRoute);
 
 //error handling
 app.use((err, req, res, next) => {
