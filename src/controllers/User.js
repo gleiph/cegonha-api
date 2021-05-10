@@ -122,11 +122,10 @@ module.exports = {
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
       const id = req.params.id;
-      const { username, password, name, cpf, email, street, number, district, city, uf, cep } = req.body;
+      const { username, name, cpf, email, street, number, district, city, uf, cep } = req.body;
 
       User.update({
         username : username, 
-        password : bcrypt.hashSync(password, 10), 
         name : name, 
         cpf : cpf, 
         street : street, 

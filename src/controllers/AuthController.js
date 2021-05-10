@@ -28,7 +28,8 @@ module.exports = {
           //generate & sign token
           let jwtPayload = { username: user.username }; //public payload!
           let token = jwt.sign(jwtPayload, process.env.JWT_SECRET); //user: user
-          return res.status(200).json({ token, username });
+          let cpf = user.cpf ;
+          return res.status(200).json({ token, username, cpf });
         });
       },
 
