@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../sequelize");
+const CoverAddress = require('./CoverAddress')
 
 const MedicalCenter = sequelize.define("medical-center", {
   id: {
@@ -58,3 +59,4 @@ const init = async () => {
 init();
 
 module.exports = MedicalCenter;
+

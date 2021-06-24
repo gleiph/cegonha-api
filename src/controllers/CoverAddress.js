@@ -74,6 +74,23 @@ module.exports = {
         .catch(next);
         },
 
+// ==> Método responsável por listar hospitais por nome':
+    findByStreet(req, res, next) {
+        const street = req.params.street;
+        CoverAddress.findAll({
+        where: {
+            street: {
+            [Op.like]: '%'+street+'%'
+            }
+        }
+        })
+        .then(result => {
+            res.send(result);
+        })
+        .catch(next);
+    },
+    
+
 // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
         const id = req.params.id;

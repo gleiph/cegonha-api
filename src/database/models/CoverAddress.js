@@ -39,22 +39,21 @@ const CoverAddress = sequelize.define("cover-address", {
   id_addres_parto: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: MedicalCenter,
-      key: 'id',
-    }
   },
   id_addres_pre_natal: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: MedicalCenter,
-      key: 'id',
-    }
   },
 
 });
 
+CoverAddress.associate = function(models) {
+  CoverAddress.belongsTo(models.MedicalCenter, {foreignKey: 'id_addres_parto', as: 'medical-center-parto'})
+};
+
+MedicalCenter.associate = function(models) {
+  MedicalCenter.belongsTo(models.MedicalCenter, {foreignKey: 'id_addres_pre_natal', as: 'medical-center'})
+};
 //create table if not exists...
 const init = async () => {
   await CoverAddress.sync();

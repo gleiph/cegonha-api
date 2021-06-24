@@ -12,7 +12,7 @@ module.exports = {
   },
 
   create(req, res, next) {
-    const { name, email, message} = req.body;
+    const { name, email, message, topic, title} = req.body;
     const errors = []
 
         if(!name) {
@@ -27,13 +27,23 @@ module.exports = {
           errors.push({error: "Message is empty"})
         }
 
+        if(!topic) {
+          errors.push({error: "Topic is empty"})
+        }
+
+        if(!title) {
+          errors.push({error: "Title is empty"})
+        }
+
         if (errors.length > 0)
             return res.status(400).json(errors);
             
     Messages.create({
         name,
         email, 
-        message
+        message, 
+        topic, 
+        title
     })
     
       .then((result) => {
@@ -49,8 +59,8 @@ module.exports = {
           const mailOptions = { // Define informações pertinentes ao E-mail que será enviado
             from: email,
             to: 'walkiria.garcia@ice.ufjf.br',
-            subject: 'Sugestões/Reclamações App rede cegonha',
-            text: message
+            subject: topic,
+            html: '<div style="background-color: black; color: white; text-align: center"><h1>'+ title +'</h1><p>'+message+'</p> </div>'
            
           }
           transporter.sendMail(mailOptions, (err, info) => { // Função que, efetivamente, envia o email.
