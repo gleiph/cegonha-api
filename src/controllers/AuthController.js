@@ -11,7 +11,6 @@ const permit = new Bearer();
 module.exports = {
     login(req, res, next) {
         const { username, password } = req.body;
-    
         User.findOne({
           where: {
             username: username,
@@ -29,6 +28,7 @@ module.exports = {
           let jwtPayload = { username: user.username }; //public payload!
           let token = jwt.sign(jwtPayload, process.env.JWT_SECRET); //user: user
           let cpf = user.cpf ;
+          console.log('token: ', + token)
           return res.status(200).json({ token, username, cpf });
         });
       },
@@ -48,7 +48,7 @@ module.exports = {
             permit.fail(res);
             return res.status(401).json({ error: "failed to authenticate token!" });
           }
-    
+          
           //save username for next middleware
           req.username = decoded.username;
           next();
@@ -58,16 +58,17 @@ module.exports = {
       admin(req, res, next) {
         // Try to find the bearer token in the request.
         const token = permit.check(req);
+        console.log('token admin: ', + token )
         // No token found, so ask for authentication.
         if (!token) {
           permit.fail(res);
           return res.status(401).json({ error: "authentication required!" });
         }
-    
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
           if (err) {
             permit.fail(res);
             return res.status(401).json({ error: "failed to authenticate token!" });
+            
           }
     
           //save username for next middleware

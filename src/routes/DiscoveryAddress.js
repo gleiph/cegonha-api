@@ -4,7 +4,7 @@ const router = express.Router();
 const AuthController = require("../controllers/AuthController");
 const DiscoveryAddresController = require("../controllers/DiscoveryAddres")
 
-router.post("/discovery-address", AuthController.admin, DiscoveryAddresController.create);
+router.post("/discovery-address",AuthController.admin, DiscoveryAddresController.create);
 router.get("/discovery-address", DiscoveryAddresController.all);
 router.get("/discovery-address/:id", DiscoveryAddresController.findById);
 router.put("/discovery-address/:id", AuthController.admin, DiscoveryAddresController.updateById);

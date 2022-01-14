@@ -129,11 +129,10 @@ module.exports = {
 
         },
 
-        findCenterMedical(req, res, next) {
+        async findCenterMedical(req, res, next) {
             const id = req.params.id;
             const { street, number, district, city, uf, cep } = req.body;
-      
-            CoverAddress.findAll({
+            await CoverAddress.findAll({
               where: {
                 street:street,
                 number_end:{
@@ -144,13 +143,14 @@ module.exports = {
                 },
                 district:district,
                 city:city,
-                uf:uf, 
                 cep:cep
               }
             })
             .then((result) => {
-                if(result !== [])
+                if(result[0] != undefined)
+                {
                     res.json(result);
+                }
                 else{
                     DiscoveryAddress.findAll({
                         where: {
@@ -163,6 +163,7 @@ module.exports = {
                         res.json(result);
                     })
                 }
+               
             })
             .catch(next);
             
