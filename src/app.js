@@ -29,7 +29,7 @@ app.use('/', contactRoute);
 //error handling
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV === "production")
-      res.status(500).json({ error: "internal server error" });
+      res.status(500).json({ error: "internal server error "});
     else return next(err);
   });
 module.exports = app;

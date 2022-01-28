@@ -17,10 +17,10 @@ const MedicalCenter = sequelize.define("medical-center", {
     type: DataTypes.STRING,
   },
   latitude: {
-    type: DataTypes.REAL,
+    type: DataTypes.DOUBLE,
   },
   longitude: {
-    type: DataTypes.REAL,
+    type: DataTypes.DOUBLE,
   },
   image: {
     type: DataTypes.STRING,
