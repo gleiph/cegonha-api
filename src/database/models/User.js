@@ -1,5 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../sequelize");
+const Adress = require('./Adress')
+const UserAdress = require('./UserAdress')
 
 const User = sequelize.define("user", {
   id: {
@@ -31,26 +33,28 @@ const User = sequelize.define("user", {
     allowNull: false,
     unique: true,
   },
-  street: {
-    type: DataTypes.STRING,
-  },
-  number: {
-    type: DataTypes.INTEGER,
-  },
-  district: {
-    type: DataTypes.STRING,
-  },
-  city: {
-    type: DataTypes.STRING,
-  },
-  uf: {
-    type: DataTypes.STRING,
-  },
- cep: {
-    type: DataTypes.STRING,
-  },
 
 });
+
+User.belongsToMany(Adress, {
+  through: {
+      model: UserAdress
+  },
+  foreignKey: 'idUser',
+  constranit: true
+})
+Adress.belongsToMany(User, {
+  through: {
+      model: UserAdress
+  },
+  foreignKey: 'idAdress',
+  constranit: true
+})
+
+User.hasMany( UserAdress, { foreignKey: 'idUser' } )
+UserAdress.belongsTo( User, { foreignKey: 'idUser' } )
+Adress.hasMany( UserAdress, { foreignKey: 'idAdress' } )
+UserAdress.belongsTo( Adress, { foreignKey: 'idAdress' } )
 
 //create table if not exists...
 const init = async () => {
