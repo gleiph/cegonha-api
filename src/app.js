@@ -4,6 +4,8 @@ const cors = require('cors');
 const app = express();
 const carsRoute = require('./routes/Cars')
 const userRoute = require('./routes/User')
+const userAdressRoute = require('./routes/UserAdress')
+const adressRoute = require('./routes/Adress')
 const medicalCenterRoute = require('./routes/MedicalCenter')
 const coverAddressRoute = require('./routes/CoverAddress')
 const discoveryCoverRoute = require('./routes/DiscoveryAddress')
@@ -20,6 +22,8 @@ app.use(cors({origin: true, credentials: true}));
 app.use(index);
 app.use('/', carsRoute);
 app.use('/', userRoute);
+app.use('/', userAdressRoute);
+app.use('/', adressRoute);
 app.use('/', medicalCenterRoute);
 app.use('/', coverAddressRoute);
 app.use('/', discoveryCoverRoute);

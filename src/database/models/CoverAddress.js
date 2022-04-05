@@ -52,8 +52,19 @@ CoverAddress.associate = function(models) {
 };
 
 MedicalCenter.associate = function(models) {
-  MedicalCenter.belongsTo(models.MedicalCenter, {foreignKey: 'id_addres_pre_natal', as: 'medical-center'})
+  CoverAddress.belongsTo(models.MedicalCenter, {foreignKey: 'id_addres_pre_natal', as: 'medical-center'})
 };
+
+/*CoverAddress.belongsTo(MedicalCenter, {
+  constraint: true, 
+  foreignKey: 'id_address_parto'
+})
+
+CoverAddress.belongsTo(MedicalCenter, {
+  constraint: true, 
+  foreignKey: 'id_address_pre_natal'
+})*/
+
 //create table if not exists...
 const init = async () => {
   await CoverAddress.sync();
