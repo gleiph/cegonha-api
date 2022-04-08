@@ -276,7 +276,6 @@ createUser: async function(req, res, next) {
 
     updateByIdUser: async function(req, res, next) {
       const id = req.params.id;
-      console.log(id)
       const {name, username, email, cpf} = req.body;
       await User.update({
         name : name, 
