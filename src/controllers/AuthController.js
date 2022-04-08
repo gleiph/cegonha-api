@@ -28,7 +28,6 @@ module.exports = {
           let jwtPayload = { username: user.username }; //public payload!
           let token = jwt.sign(jwtPayload, process.env.JWT_SECRET); //user: user
           let cpf = user.cpf ;
-          console.log('token: ', + token)
           return res.status(200).json({ token, username, cpf });
         });
       },
@@ -58,7 +57,6 @@ module.exports = {
       admin(req, res, next) {
         // Try to find the bearer token in the request.
         const token = permit.check(req);
-        console.log('token admin: ', + token )
         // No token found, so ask for authentication.
         if (!token) {
           permit.fail(res);

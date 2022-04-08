@@ -14,7 +14,6 @@ module.exports = {
                cpf: cpfUser
             }
          })
-         console.log(idUser.length)
          const adressTemp = await Adress.findAll({
              where: {
                  street: street,
@@ -28,7 +27,6 @@ module.exports = {
      
 
          if(adressTemp.length > 0){
-            console.log('ja tem endereço')
             const userAdresTemp = await UserAdress.findAll({
                where: {
                   idUser: idUser[0].id,
@@ -51,7 +49,6 @@ module.exports = {
             }
          }
          else{
-            console.log('ainda não tem tem endereço')
              const newAdress = await Adress.create({
                 street: street,
                 number: number,
@@ -96,21 +93,16 @@ module.exports = {
       updateId : async function(req, res, next){
          const idAdress = req.params.idAdress;
          const idUser = req.params.idUser;
-         console.log('idAdress:')
-         console.log(idAdress)
-         console.log('idUser:')
-         console.log(idUser)
+        
          const { street, number, district, city, uf, cep } = req.body;
-         console.log('values')
-          console.log(street + number + district + city +  uf + cep)
+ 
      
          const userAdressTemp2 = await UserAdress.findAll({
            where:{
              idAdress: idAdress
            }
          })
-         console.log('userAdressTemp2')
-         console.log(userAdressTemp2)
+       
          
         
            
@@ -124,12 +116,11 @@ module.exports = {
             cep : cep,
          }
          })
-         console.log('temp')
-         console.log(temp)
+        
          try{
-              console.log('flamengo')
+              
                if(temp == null){
-                  console.log('Vai ter qeu criar endereço')
+                 
                   const NewAdress = await Adress.create({
                   street: street,
                   number: number,
@@ -146,10 +137,10 @@ module.exports = {
                       idUser: idUser,
                       idAdress: idAdress
                   } })
-                 console.log('1')
+                 
                }
                else{
-                  console.log('Já tem')
+                  
                     await UserAdress.update({
                     idAdress: temp.id
                     },
@@ -159,8 +150,7 @@ module.exports = {
                   
                   } })
                    }
-                   console.log('vai excluir')
-                   console.log(userAdressTemp2.length)
+                  
                if(userAdressTemp2.length == 1)
                {
                   await Adress.destroy({
@@ -168,7 +158,6 @@ module.exports = {
                   id: idAdress
                }
                })}
-               console.log('sucesso')
                res.json('Endereço editado com sucesso');
          }
          catch(err){
