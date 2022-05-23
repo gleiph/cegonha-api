@@ -1,15 +1,15 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
-const MedicalCenter = require('./MedicalCenter')
+const MedicalCenter = require("./MedicalCenter");
 
 const CoverAddress = sequelize.define("cover-address", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
-    primaryKey: true
-  },  
+    primaryKey: true,
+  },
   street: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -44,15 +44,28 @@ const CoverAddress = sequelize.define("cover-address", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-
+  id_next_available_address_parto: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  id_next_available_address_pre_natal: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
 });
 
-CoverAddress.associate = function(models) {
-  CoverAddress.belongsTo(models.MedicalCenter, {foreignKey: 'id_addres_parto', as: 'medical-center-parto'})
+CoverAddress.associate = function (models) {
+  CoverAddress.belongsTo(models.MedicalCenter, {
+    foreignKey: "id_addres_parto",
+    as: "medical-center-parto",
+  });
 };
 
-MedicalCenter.associate = function(models) {
-  CoverAddress.belongsTo(models.MedicalCenter, {foreignKey: 'id_addres_pre_natal', as: 'medical-center'})
+MedicalCenter.associate = function (models) {
+  CoverAddress.belongsTo(models.MedicalCenter, {
+    foreignKey: "id_addres_pre_natal",
+    as: "medical-center",
+  });
 };
 
 /*CoverAddress.belongsTo(MedicalCenter, {

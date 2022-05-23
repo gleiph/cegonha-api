@@ -1,14 +1,14 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../sequelize");
-const CoverAddress = require('./CoverAddress')
+const CoverAddress = require("./CoverAddress");
 
 const MedicalCenter = sequelize.define("medical-center", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
-    primaryKey: true
-  },  
+    primaryKey: true,
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -44,11 +44,14 @@ const MedicalCenter = sequelize.define("medical-center", {
     type: DataTypes.STRING,
     allowNull: false,
   },
- cep: {
+  cep: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
 });
 
 //create table if not exists...
@@ -59,4 +62,3 @@ const init = async () => {
 init();
 
 module.exports = MedicalCenter;
-
