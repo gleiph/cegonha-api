@@ -129,7 +129,7 @@ module.exports = {
 
         },
 
-        async findCenterMedical(req, res, next) {
+    async findCenterMedical(req, res, next) {
             const id = req.params.id;
             const { street, number, district, city, uf, cep } = req.body;
             await CoverAddress.findAll({
@@ -156,10 +156,10 @@ module.exports = {
                         where: {
                             district:district,
                             city:city,
-                            uf:uf, 
                           }
                     })
                     .then((result) => {
+                        console.log(result)
                         res.json(result);
                     })
                 }

@@ -7,7 +7,7 @@ const UserController = require("../controllers/User");
 
 router.post("/login",AuthController.login);
 router.post("/user", UserController.create);
-router.post("/user", UserController.createUser);
+router.post("/user2", UserController.createUser);
 router.get("/user", AuthController.admin, UserController.all);
 router.get("/user/:cpf", UserController.findByCpf);
 router.get("/userId/:id", UserController.findById);
