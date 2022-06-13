@@ -5,7 +5,8 @@ module.exports = {
   all(req, res, next) {
     Neighborhoods.findAll()
       .then((result) => {
-        res.json(result);
+        resultNames = result.map((r) => r.name);
+        res.json(resultNames);
       })
       .catch(next);
   },
