@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
+const Region = require("./Region");
 const MedicalCenter = require('./MedicalCenter')
 
 const DiscoveyAddress = sequelize.define("discovey-address", {
@@ -8,15 +9,7 @@ const DiscoveyAddress = sequelize.define("discovey-address", {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
-    primaryKey: true
-  },  
-  district: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  region: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    primaryKey: true,
   },
   city: {
     type: DataTypes.STRING,
@@ -26,23 +19,26 @@ const DiscoveyAddress = sequelize.define("discovey-address", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  cep: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  region_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Region,
+      key: "id",
+    },
   },
   id_addres_parto: {
     type: DataTypes.INTEGER,
     references: {
       model: MedicalCenter,
-      key: 'id',
-    }
+      key: "id",
+    },
   },
   id_addres_pre_natal: {
     type: DataTypes.INTEGER,
     references: {
       model: MedicalCenter,
-      key: 'id',
-    }
+      key: "id",
+    },
   },
 });
 
