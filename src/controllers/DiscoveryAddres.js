@@ -43,7 +43,6 @@ module.exports = {
             errors.push({ error: "id_addres_pre_natal is empty" });
         }
         if (errors.length > 0) return res.status(400).json(errors);
-        let discovery_address_id
 
         DiscoveryAddress.create({
             region,
@@ -53,29 +52,24 @@ module.exports = {
             id_addres_pre_natal,
         })
             .then((result) => {
-                discovery_address_id = result.id
-                console.log("o discovery", discovery_address_id)
-                console.log("============", result.id)
+                const discovery_address_id = result.id
+                district.forEach(async element => {
+                    const neighborhood = await Neighborhoods.findOne({
+                        where: { name: element },
+                    });
+                    const neighborhood_id = neighborhood.id
+                    const name = region
+                    Region.create({
+                        name,
+                        neighborhood_id,
+                        discovery_address_id,
+                    })
+                });
+                res.status(201)
             })
             .catch(next);
 
-        try {
-            district.forEach(async element => {
-                const neighborhood = await Neighborhoods.findOne({
-                    where: { name: element },
-                });
-                const neighborhood_id = neighborhood.id
-                const name = region
-                Region.create({
-                    name,
-                    neighborhood_id,
-                    discovery_address_id,
-                })
-            });
-            res.status(201)
-        } catch (e) {
-            next()
-        }
+
     },
 
 
