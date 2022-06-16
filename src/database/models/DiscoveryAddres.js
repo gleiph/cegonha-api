@@ -1,8 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
-const Region = require("./Region");
-const MedicalCenter = require('./MedicalCenter')
+const MedicalCenter = require("./MedicalCenter");
 
 const DiscoveyAddress = sequelize.define("discovey-address", {
   id: {
@@ -19,12 +18,9 @@ const DiscoveyAddress = sequelize.define("discovey-address", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  region_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Region,
-      key: "id",
-    },
+  region: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   id_addres_parto: {
     type: DataTypes.INTEGER,

@@ -2,6 +2,7 @@ const { DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
 const Neighborhoods = require("./Neighborhoods");
+const DiscoveryAddres = require("./DiscoveryAddres");
 
 const Region = sequelize.define("region", {
   id: {
@@ -18,6 +19,13 @@ const Region = sequelize.define("region", {
     type: DataTypes.INTEGER,
     references: {
       model: Neighborhoods,
+      key: "id",
+    },
+  },
+  discovery_address_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: DiscoveryAddres,
       key: "id",
     },
   },
