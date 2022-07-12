@@ -21,13 +21,17 @@ const Messages = sequelize.define("messages", {
     allowNull: false,
   },
   
+},
+{
+  freezeTableName: true,
+  tableName: "messages"
 });
 
 //create table if not exists...
-const init = async () => {
+/*const init = async () => {
   await Messages.sync();
 };
 
-init();
+init();*/
 
 module.exports = Messages;

@@ -28,14 +28,18 @@ const Contact = sequelize.define("contact", {
     type: DataTypes.STRING,
   }
   
+},
+{
+  freezeTableName: true,
+  tableName: "contact"
 });
 
 //create table if not exists...
-const init = async () => {
+/*const init = async () => {
   await Contact.sync();
 };
 
-init();
+init();*/
 
 module.exports = Contact;
 

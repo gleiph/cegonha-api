@@ -36,13 +36,17 @@ const DiscoveyAddress = sequelize.define("discovey-address", {
       key: "id",
     },
   },
+},
+{
+  freezeTableName: true,
+  tableName: "discovey-address"
 });
 
 //create table if not exists...
-const init = async () => {
+/*const init = async () => {
   await DiscoveyAddress.sync();
 };
 
-init();
+init();*/
 
 module.exports = DiscoveyAddress;

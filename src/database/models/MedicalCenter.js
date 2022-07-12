@@ -52,13 +52,17 @@ const MedicalCenter = sequelize.define("medical-center", {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
+},
+{
+  freezeTableName: true,
+  tableName: "medical-center"
 });
 
 //create table if not exists...
-const init = async () => {
+/*const init = async () => {
   await MedicalCenter.sync();
 };
 
-init();
+init();*/
 
 module.exports = MedicalCenter;

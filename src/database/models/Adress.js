@@ -34,13 +34,17 @@ const Adress = sequelize.define("adress", {
     allowNull: false,
   },
 
+},
+{
+  freezeTableName: true,
+  tableName: "adress"
 });
 
 //create table if not exists...
-const init = async () => {
+/*const init = async () => {
   await Adress.sync();
 };
 
-init();
+init();*/
 
 module.exports = Adress;

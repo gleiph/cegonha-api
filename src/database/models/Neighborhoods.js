@@ -13,13 +13,17 @@ const Neighborhoods = sequelize.define("neighborhoods", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+},
+{
+  freezeTableName: true,
+  tableName: "neighborhoods"
 });
 
 //create table if not exists...
-const init = async () => {
+/*const init = async () => {
   await Neighborhoods.sync();
 };
 
-init();
+init();*/
 
 module.exports = Neighborhoods;

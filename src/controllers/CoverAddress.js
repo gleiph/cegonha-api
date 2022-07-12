@@ -143,7 +143,7 @@ module.exports = {
                 },
                 district:district,
                 city:city,
-                cep:cep
+                cep:cep //checar se precisa do cep
               }
             })
             .then((result) => {

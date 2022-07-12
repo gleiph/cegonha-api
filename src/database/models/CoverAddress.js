@@ -52,6 +52,10 @@ const CoverAddress = sequelize.define("cover-address", {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
+},
+{
+  freezeTableName: true,
+  tableName: "cover-address"
 });
 
 CoverAddress.associate = function (models) {
@@ -79,10 +83,10 @@ CoverAddress.belongsTo(MedicalCenter, {
 })*/
 
 //create table if not exists...
-const init = async () => {
+/*const init = async () => {
   await CoverAddress.sync();
 };
 
-init();
+init();*/
 
 module.exports = CoverAddress;

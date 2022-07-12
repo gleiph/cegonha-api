@@ -12,12 +12,14 @@ const messageRoute = require("./routes/Message");
 const contactRoute = require("./routes/Contact");
 const neighborhoodRoute = require("./routes/Neighborhoods");
 
+
 // ==> Rotas da API:
 const index = require("./routes/index");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.json({ type: "application/vnd.api+json" }));
 app.use(cors({ origin: true, credentials: true }));
+
 
 app.use(index);
 app.use("/", userRoute);
@@ -37,3 +39,5 @@ app.use((err, req, res, next) => {
   else return next(err);
 });
 module.exports = app;
+
+
