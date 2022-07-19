@@ -16,9 +16,7 @@ module.exports = {
     create(req, res, next) {
         const { district, region, city, uf, id_addres_parto, id_addres_pre_natal } =
             req.body;
-
         const errors = [];
-
         if (!district) {
             errors.push({ error: "District is empty" });
         }
@@ -43,7 +41,6 @@ module.exports = {
             errors.push({ error: "id_addres_pre_natal is empty" });
         }
         if (errors.length > 0) return res.status(400).json(errors);
-
         DiscoveryAddress.create({
             region,
             city,
@@ -65,11 +62,9 @@ module.exports = {
                         discovery_address_id,
                     })
                 });
-                res.status(201)
+                res.send(201).send("sucesso");
             })
             .catch(next);
-
-
     },
 
 

@@ -11,6 +11,7 @@ const permit = new Bearer();
 module.exports = {
     login(req, res, next) {
         const { username, password } = req.body;
+
         User.findOne({
           where: {
             username: username,
@@ -25,11 +26,13 @@ module.exports = {
           }
     
           //generate & sign token
-          let jwtPayload = { username: user.username }; //public payload!
+          let jwtPayload = { admin: user.admin }; //public payload!
           let token = jwt.sign(jwtPayload, process.env.JWT_SECRET); //user: user
           let cpf = user.cpf ;
-          return res.status(200).json({ token, username, cpf });
-        });
+          let admin = user.admin;
+          return res.status(200).json({ token, username, cpf, admin });
+        })
+        .catch(next);
       },
 
       auth(req, res, next) {
@@ -55,6 +58,7 @@ module.exports = {
       },
 
       admin(req, res, next) {
+        
         // Try to find the bearer token in the request.
         const token = permit.check(req);
         // No token found, so ask for authentication.
@@ -70,8 +74,8 @@ module.exports = {
           }
     
           //save username for next middleware
-          req.username = decoded.username;
-          if (req.username != 'admin') {
+          req.admin = decoded.admin;
+          if (req.admin != true) {
             permit.fail(res);
             return res.status(401).json({ error: "user without access!" });
           }

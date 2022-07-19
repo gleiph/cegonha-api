@@ -15,7 +15,7 @@ module.exports = {
 
 
   create : async function(req, res, next) {
-    const { username, password, name, cpf, email, street, number, district, city, uf, cep } = req.body;
+    const { username, password, name, cpf, email, admin, street, number, district, city, uf, cep } = req.body;
     const errors = []
 
     if(!username) {
@@ -37,6 +37,10 @@ module.exports = {
     if(!email) {
       errors.push({error: "Email is empty"})
   }
+
+  if(admin != true && admin != false) {
+    errors.push({error: "Admin is empty"})
+}
 
     if (errors.length > 0)
         return res.status(400).json(errors);
@@ -67,7 +71,8 @@ module.exports = {
       password : bcrypt.hashSync(password, 10),
       name, 
       cpf, 
-      email
+      email,
+      admin
     })
 
     const temp = await Adress.findAll({
@@ -161,7 +166,7 @@ module.exports = {
   }
 },
 createUser: async function(req, res, next) {
-    const { username, password, name, cpf, email } = req.body;
+    const { username, password, name, cpf, email, admin } = req.body;
     const errors = []
 
     if(!username) {
@@ -181,8 +186,11 @@ createUser: async function(req, res, next) {
     }
 
     if(!email) {
-      errors.push({error: "Email is empty"})
-  }
+      errors.push({error: "Email is empty"}) 
+    }
+    if(!admin) {
+      errors.push({error: "Admin is empty"})
+    }
 
     if (errors.length > 0)
         return res.status(400).json(errors);
@@ -213,7 +221,8 @@ createUser: async function(req, res, next) {
       password : bcrypt.hashSync(password, 10),
       name, 
       cpf, 
-      email
+      email,
+      admin
     })
     .then((result) => {
       const transporter = nodemailer.createTransport({ // Configura os parâmetros de conexão com servidor.

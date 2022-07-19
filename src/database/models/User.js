@@ -35,6 +35,10 @@ const User = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    }
   },
   {
     freezeTableName: true,
