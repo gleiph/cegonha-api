@@ -309,6 +309,20 @@ module.exports = {
       .catch(next);
   },
 
+  findByName(req, res, next) {
+    const name= req.params.name;
+    User.findAll({
+      include: [Adress],
+      where: {
+        name: name,
+      },
+    })
+      .then((customer) => {
+        res.send(customer);
+      })
+      .catch(next);
+  },
+
   findById(req, res, next) {
     const id = req.params.id;
     User.findAll({
