@@ -151,13 +151,13 @@ module.exports = {
                   } })
                    }
                   
-               if(userAdressTemp2.length == 1)
+               /*if(userAdressTemp2.length == 1)
                {
                   await Adress.destroy({
                   where: {
                   id: idAdress
                }
-               })}
+               })}*/
                res.json('Endereço editado com sucesso');
          }
          catch(err){
