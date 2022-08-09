@@ -29,4 +29,15 @@ module.exports = {
       })
       .catch(next);
   },
+  findByName(req, res, next) {
+    const name = req.params.name;
+    Neighborhoods.findAll({
+      where: {
+        name: name,
+      },
+    }).then((result) => {
+      res.send(result);
+    })
+    .catch(next)
+  }
 };

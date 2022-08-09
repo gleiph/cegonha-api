@@ -77,6 +77,29 @@ module.exports = {
             })
             .catch(next);
     },
+    findByNeighborhood: async function (req, res, next){
+        const neighborhood = req.params.neighborhood
+        const idNeighborhood = await Neighborhoods.findOne({
+            where: {
+                name: neighborhood,
+            }
+        })
+        if(idNeighborhood === null)
+            return res.status(400).json('Neighborhood not found')
+
+        Region.findOne({
+           where: {
+            neighborhood_id: idNeighborhood.id
+           } 
+        }).then((result)=> {
+            DiscoveryAddress.findByPk(result.id)
+            .then((result) => {
+                res.send(result);
+            })
+            .catch(next);
+        })
+
+    },
 
     // ==> Método responsável por atualizar um 'Endereço' pelo 'id':
     updateById(req, res, next) {
