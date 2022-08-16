@@ -92,7 +92,7 @@ module.exports = {
       username,
       password: bcrypt.hashSync(password, 10),
       name,
-      cpf,
+      cpf: cpf.replace(/\D/g, ""),
       email,
       admin,
     });
@@ -115,7 +115,7 @@ module.exports = {
         district: district,
         city: city,
         uf: uf,
-        cep: cep,
+        cep: cep.replace(/\D/g, ""),
       });
       await UserAdress.create({
         idUser: NweUser.id,
@@ -252,7 +252,7 @@ module.exports = {
       username,
       password: bcrypt.hashSync(password, 10),
       name,
-      cpf,
+      cpf: cpf.replace(/\D/g, ""),
       email,
       admin,
     })
@@ -372,7 +372,7 @@ module.exports = {
         name: name,
         username: username,
         email: email,
-        cpf: cpf,
+        cpf: cpf.replace(/\D/g, ""),
       },
       { where: { id: id } }
     ).then((result) => {
@@ -411,7 +411,7 @@ module.exports = {
       {
         username: username,
         name: name,
-        cpf: cpf,
+        cpf: cpf.replace(/\D/g, ""),
         email: email,
       },
       { where: { id: id } }

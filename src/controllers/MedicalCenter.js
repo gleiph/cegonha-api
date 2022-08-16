@@ -23,6 +23,19 @@ module.exports = {
             errors.push({error: "Street is empty"})
         }
 
+        if(!number) {
+          errors.push({error: "Number is empty"})
+        }
+
+        if(number != 's/n' && isNaN(number) == true ){
+          errors.push({error: "Number is invalid! Enter numbers only or y/n for addresses without number"})
+        }else{
+          if(parseInt(number) < 0){
+            errors.push({error: "Number is ivalid! Enter only positive numbers"})
+          }
+        }
+
+        
         if(!district) {
           errors.push({error: "District is empty"})
         }
@@ -44,7 +57,7 @@ module.exports = {
             
     MedicalCenter.create({
         name,
-        phone,
+        phone: phone.replace(/\D/g, ""),
         latitude, 
         longitude, 
         image,
@@ -94,7 +107,7 @@ module.exports = {
 
       MedicalCenter.update({
         name : name, 
-        phone :  phone, 
+        phone :  phone.replace(/\D/g, ""), 
         latitude : latitude, 
         longitude : longitude,
         image: image,
