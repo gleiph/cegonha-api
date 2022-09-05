@@ -136,6 +136,14 @@ module.exports = {
     deleteById(req, res, next) {
         const id = req.params.id;
 
+        Region.destroy({
+            where: {discovery_address_id: id},
+        }).then(() => {
+            
+            })
+            .catch((err)=>{
+               res.send(result)
+            });
         DiscoveryAddress.destroy({
             where: { id: id },
         })
@@ -144,6 +152,9 @@ module.exports = {
                     .status(200)
                     .send("deleted successfully a Discovery Address with id = " + id);
             })
-            .catch(next);
+            .catch((err)=>{
+               res.send(result)
+            });
+            
     },
 };
