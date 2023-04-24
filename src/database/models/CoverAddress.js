@@ -71,7 +71,6 @@ MedicalCenter.associate = function (models) {
     as: "medical-center",
   });
 };
-
 /*CoverAddress.belongsTo(MedicalCenter, {
   constraint: true, 
   foreignKey: 'id_address_parto'

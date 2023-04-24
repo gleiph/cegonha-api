@@ -80,6 +80,7 @@ module.exports = {
     const id = req.params.id;
     MedicalCenter.findByPk(id)
     .then(result => {
+        console.log(result);
         res.send(result);
     })
     .catch(next);

@@ -26,7 +26,6 @@ const Messages = sequelize.define("messages", {
   freezeTableName: true,
   tableName: "messages"
 });
-
 //create table if not exists...
 /*const init = async () => {
   await Messages.sync();

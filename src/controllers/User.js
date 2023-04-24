@@ -67,7 +67,12 @@ module.exports = {
       errors.push({ error: "Password is invalid" });
     }
 
-    if (errors.length > 0) return res.status(400).json(errors);
+    if (errors.length > 0) {
+      console.log(errors)
+      return res.status(400).json(errors);
+    }
+     
+    
 
     User.findAll({
       where: {
@@ -227,7 +232,8 @@ module.exports = {
       errors.push({ error: "Admin is empty" });
     }
 
-    if (errors.length > 0) return res.status(400).json(errors);
+    //if (errors.length > 0) return res.status(400).json(errors);
+    if (errors.length > 0) next;
 
     User.findAll({
       where: {

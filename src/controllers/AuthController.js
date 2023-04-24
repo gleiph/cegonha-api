@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { Bearer } = require("permit");
 const { Basic } = require("permit");
+require('dotenv').config
 const crypto = require("crypto");
 const nodemailer = require('nodemailer') // Importa o módulo principal
 const User = require("../database/models/User");

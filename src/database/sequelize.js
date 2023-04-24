@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
+require('dotenv').config
 
 
 if (process.env.NODE_ENV === "production")

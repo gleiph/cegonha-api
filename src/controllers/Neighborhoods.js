@@ -10,6 +10,14 @@ module.exports = {
       })
       .catch(next);
   },
+  findByName: async function  (req, res, next) {
+    const name  = req.params.name;
+     Neighborhoods.findOne({
+      where: {name: name}
+     }).then((result) => {
+      res.json(result)
+   }).catch(next);
+  },
   // ==> Método responsável por criar um novo 'Bairro':
   create(req, res, next) {
     const { name } = req.body;
@@ -29,7 +37,38 @@ module.exports = {
       })
       .catch(next);
   },
-  findByName(req, res, next) {
+  findByIdSiscoveryAddress: async function (req,res,next) {
+    const id = req.params.id;
+    Neighborhoods.findAll({
+      where: { discovery_address_id: id }
+    }).then((result) => {
+       res.send(result);
+    })
+  },
+  updateIdDiscoveryAddress: async function (req, res, next) {
+    const { idDiscoveryAddress, district } = req.body
+    if (idDiscoveryAddress) {
+      district.forEach(async element => {
+        await Neighborhoods.update(
+          {
+            discovery_address_id: idDiscoveryAddress
+          },
+          { where: { name: element } }
+        )
+      });
+      /*await Neighborhoods.update(
+        {
+          discovery_address_id: idDiscoveryAddress
+        },
+        { where: { id: id } }
+      ).then((result) => {
+        res.json(result);
+      });*/
+      res.json("sucesso")
+    }
+  }
+
+  /*findByName(req, res, next) {
     const name = req.params.name;
     Neighborhoods.findAll({
       where: {
@@ -39,5 +78,5 @@ module.exports = {
       res.send(result);
     })
     .catch(next)
-  }
+  }*/
 };

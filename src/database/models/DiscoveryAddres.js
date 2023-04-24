@@ -3,6 +3,7 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../sequelize");
 const MedicalCenter = require("./MedicalCenter");
 
+
 const DiscoveyAddress = sequelize.define("discovey-address", {
   id: {
     type: DataTypes.INTEGER,
@@ -41,7 +42,6 @@ const DiscoveyAddress = sequelize.define("discovey-address", {
   freezeTableName: true,
   tableName: "discovey-address"
 });
-
 //create table if not exists...
 /*const init = async () => {
   await DiscoveyAddress.sync();

@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+/*{ DataTypes } = require("sequelize");
 
 const sequelize = require("../sequelize");
 const Neighborhoods = require("./Neighborhoods");
@@ -38,11 +38,4 @@ const Region = sequelize.define(
   }
 );
 
-//create table if not exists...
-/*const init = async () => {
-  await Region.sync();
-};
-
-init();*/
-
-module.exports = Region;
+module.exports = Region;*/

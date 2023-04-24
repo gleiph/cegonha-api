@@ -132,6 +132,14 @@ module.exports = {
     async findCenterMedical(req, res, next) {
             const id = req.params.id;
             const { street, number, district, city, uf, cep } = req.body;
+            console.log(street)
+            console.log(number)
+            console.log(district)
+            console.log(city)
+            console.log(uf)
+            console.log(cep)
+            
+            console.log('procurando endereço coberto')
             await CoverAddress.findAll({
               where: {
                 street:street,
@@ -143,7 +151,7 @@ module.exports = {
                 },
                 district:district,
                 city:city,
-                cep:cep //checar se precisa do cep
+                //cep:cep //checar se precisa do cep
               }
             })
             .then((result) => {
@@ -152,6 +160,7 @@ module.exports = {
                     res.json(result);
                 }
                 else{
+                    console.log('procurando área descoberta')
                     DiscoveryAddress.findAll({
                         where: {
                             district:district,

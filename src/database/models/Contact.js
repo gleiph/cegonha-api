@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../sequelize");
-
 const Contact = sequelize.define("contact", {
   id: {
     type: DataTypes.INTEGER,
@@ -33,7 +32,6 @@ const Contact = sequelize.define("contact", {
   freezeTableName: true,
   tableName: "contact"
 });
-
 //create table if not exists...
 /*const init = async () => {
   await Contact.sync();

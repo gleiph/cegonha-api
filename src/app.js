@@ -13,6 +13,7 @@ const contactRoute = require("./routes/Contact");
 const neighborhoodRoute = require("./routes/Neighborhoods");
 
 
+
 // ==> Rotas da API:
 const index = require("./routes/index");
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +32,8 @@ app.use("/", discoveryCoverRoute);
 app.use("/", messageRoute);
 app.use("/", contactRoute);
 app.use("/", neighborhoodRoute);
+
+
 
 //error handling
 app.use((err, req, res, next) => {

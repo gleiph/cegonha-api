@@ -33,13 +33,12 @@ const Adress = sequelize.define("adress", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
+   
 },
 {
   freezeTableName: true,
   tableName: "adress"
 });
-
 //create table if not exists...
 /*const init = async () => {
   await Adress.sync();

@@ -57,7 +57,6 @@ const MedicalCenter = sequelize.define("medical-center", {
   freezeTableName: true,
   tableName: "medical-center"
 });
-
 //create table if not exists...
 /*const init = async () => {
   await MedicalCenter.sync();
