@@ -1,16 +1,22 @@
 const Neighborhoods = require("../database/models/Neighborhoods");
+const DiscoveryAddres = require ("../database/models/DiscoveryAddres")
 
 module.exports = {
   // ==> Método responsável por listar todos os 'Bairros':
   all(req, res, next) {
-    Neighborhoods.findAll()
+    Neighborhoods.findAll({
+      order: [
+
+          ["name", "ASC"],
+      ],
+  })
       .then((result) => {
         resultNames = result.map((r) => r.name);
         res.json(resultNames);
       })
       .catch(next);
   },
-  findByName: async function  (req, res, next) {
+  findByName: async function (req, res, next) {
     const name  = req.params.name;
      Neighborhoods.findOne({
       where: {name: name}
@@ -37,10 +43,11 @@ module.exports = {
       })
       .catch(next);
   },
-  findByIdSiscoveryAddress: async function (req,res,next) {
+  findByIdiscoveryAddress: async function (req,res,next) {
     const id = req.params.id;
+    console.log(id)
     Neighborhoods.findAll({
-      where: { discovery_address_id: id }
+      where: { discoveyAddressId: id }
     }).then((result) => {
        res.send(result);
     })
@@ -51,7 +58,7 @@ module.exports = {
       district.forEach(async element => {
         await Neighborhoods.update(
           {
-            discovery_address_id: idDiscoveryAddress
+            discoveyAddressId: idDiscoveryAddress
           },
           { where: { name: element } }
         )

@@ -15,14 +15,14 @@ const Neighborhoods = sequelize.define("neighborhoods", {
     allowNull: false,
     unique: true,
   },
-  discovery_address_id: {
+  /*discovery_address_id: {
     type: DataTypes.INTEGER,
     references: {
       model: DiscoveryAddres,
       key: "id",
     },
   },
-  /*region_id: {
+  region_id: {
     type: DataTypes.INTEGER,
     references: {
       model: Region,
@@ -34,6 +34,8 @@ const Neighborhoods = sequelize.define("neighborhoods", {
     freezeTableName: true,
     tableName: "neighborhoods"
   });
+  Neighborhoods.belongsTo(DiscoveryAddres);
+    DiscoveryAddres.hasMany(Neighborhoods);
 /*Neighborhoods.associate = (models) => {
   Neighborhoods.belongsTo(models.region_id, { 
     foreignKey: "id", as: "Region" });

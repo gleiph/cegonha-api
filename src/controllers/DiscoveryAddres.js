@@ -6,7 +6,13 @@ const Neighborhoods = require("../database/models/Neighborhoods");
 module.exports = {
     // ==> Método responsável por listar todos os 'Endereços':
     all(req, res, next) {
-        DiscoveryAddress.findAll()
+        DiscoveryAddress.findAll({
+            include: Neighborhoods,
+            order: [
+                ["region", "ASC"],
+                [Neighborhoods, "name", "ASC"],
+            ],
+        })
             .then((result) => {
                 res.json(result);
             })
@@ -49,28 +55,17 @@ module.exports = {
             id_addres_pre_natal,
         })
             .then((result) => {
-                const discovery_address_id = result.id
-                /*district.forEach(async element => {
-                    const neighborhood = await Neighborhoods.findOne({
-                        where: { name: element },
-                    });
-                    const neighborhood_id = neighborhood.id
-                    const name = region
-                    Region.create({
-                        name,
-                        neighborhood_id,
-                        discovery_address_id,
-                    })
-                });*/
+                const discoveyAddressId = result.id
                 district.forEach(async element => {
+                    console.log(element)
                     await Neighborhoods.update(
                         {
-                            discovery_address_id: discovery_address_id
+                            discoveyAddressId: discoveyAddressId
                         },
                         { where: { name: element } }
                     )
                 });
-                res.send(201).send("sucesso");
+                res.send(201).json("sucesso");
             })
             .catch(next);
     },
@@ -140,9 +135,9 @@ module.exports = {
                     on.forEach(async (element) => {
                         let district = await Neighborhoods.findOne({ where: { name: element } })
                         if (district) {
-                            if (district.discovery_address_id == null) {
+                            if (district.discoveyAddressId == null) {
                                 await Neighborhoods.update({
-                                    discovery_address_id: id
+                                    discoveyAddressId: id
                                 },
                                     { where: { name: element } }
                                 )
@@ -174,15 +169,12 @@ module.exports = {
     // ==> Método responsável por excluir um 'DiscoveryAddress' pelo 'Id':
     deleteById(req, res, next) {
         const id = req.params.id;
-
-        Region.destroy({
-            where: { discovery_address_id: id },
-        }).then(() => {
-
-        })
-            .catch((err) => {
-                res.send(result)
-            });
+        Neighborhoods.destroy({
+            where: { discoveyAddressId: id }
+        }).then(console.log('Bairros deletados'))
+        .catch((err) => {
+            console.log(err);
+        });
         DiscoveryAddress.destroy({
             where: { id: id },
         })
@@ -192,7 +184,8 @@ module.exports = {
                     .send("deleted successfully a Discovery Address with id = " + id);
             })
             .catch((err) => {
-                res.send(result)
+                console.log(err);
+                res.send(err)
             });
 
     },

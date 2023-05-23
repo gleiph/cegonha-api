@@ -6,7 +6,7 @@ const Neighborhoods = require("../controllers/Neighborhoods");
 
 router.post("/neighborhood"/*, AuthController.admin*/, Neighborhoods.create);
 router.get("/neighborhood", Neighborhoods.all);
-router.get("/neighborhood/:id", Neighborhoods.findByIdSiscoveryAddress);
+router.get("/neighborhood/:id", Neighborhoods.findByIdiscoveryAddress);
 router.put("/neighborhood", Neighborhoods.updateIdDiscoveryAddress);
 router.get("/neighborhood-name/:name", Neighborhoods.findByName);
 
